@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://b5jelwtpibsnc"]
+
+[ext_resource type="Texture2D" uid="uid://brwofci856iev" path="res://textures/gunResidual.png" id="1_26ed0"]
+
+[node name="Sprite3D" type="Sprite3D"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -0.163087, 0.844759, -3.97294)
+texture = ExtResource("1_26ed0")

@@ -1,17 +1,39 @@
-[gd_scene load_steps=5 format=3 uid="uid://c3ffql15mo0aj"]
+[gd_scene load_steps=16 format=3 uid="uid://c3ffql15mo0aj"]
 
 [ext_resource type="Script" path="res://controllers/scripts/fps_controller.gd" id="1_pgc1p"]
 [ext_resource type="Material" uid="uid://b4gwd5h7ixvct" path="res://materials/player.tres" id="2_gldw4"]
+[ext_resource type="Script" path="res://controllers/camera_controller.gd" id="3_7pqd3"]
+[ext_resource type="PackedScene" uid="uid://dnmoh3hsk5ogr" path="res://scenes/pistol.tscn" id="3_juag8"]
+[ext_resource type="Script" path="res://controllers/weaponSway.gd" id="3_tyar0"]
+[ext_resource type="Texture2D" uid="uid://bjog3q0dfhduk" path="res://textures/crossHair.png" id="4_la1tu"]
+[ext_resource type="Texture2D" uid="uid://d3ojoqfjra10t" path="res://textures/HUD_OVERLAY.png" id="5_3bpq2"]
+[ext_resource type="FontFile" uid="uid://ceelhrigy7jdk" path="res://fonts/Kenney Mini Square.ttf" id="6_xko6y"]
+[ext_resource type="Script" path="res://controllers/hudManager.gd" id="7_kyenc"]
+[ext_resource type="Texture2D" uid="uid://ct2s3ed37w63" path="res://textures/visualHUD.png" id="9_2jh7h"]
+[ext_resource type="AudioStream" uid="uid://dt4ceth71avcj" path="res://sounds/KABOOM.wav" id="10_baeo7"]
+[ext_resource type="Texture2D" uid="uid://bkahsax1l65m2" path="res://textures/scanCrossHair.png" id="10_ytu02"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_u6tj1"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_6tv51"]
 material = ExtResource("2_gldw4")
 
-[node name="CharacterBody3D" type="CharacterBody3D" node_paths=PackedStringArray("CAMERA_CONTROLLER")]
+[sub_resource type="SpriteFrames" id="SpriteFrames_h8lct"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("5_3bpq2")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="CharacterBody3D" type="CharacterBody3D" node_paths=PackedStringArray("CAMERA_CONTROLLER", "PLAYER_CONTROLLER") groups=["player"]]
 script = ExtResource("1_pgc1p")
 MOUSE_SENSITIVITY = 0.25
 CAMERA_CONTROLLER = NodePath("CameraController/Camera3D")
+PLAYER_CONTROLLER = NodePath(".")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
@@ -24,7 +46,67 @@ mesh = SubResource("CapsuleMesh_6tv51")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
 
 [node name="Camera3D" type="Camera3D" parent="CameraController"]
+fov = 110.0
+script = ExtResource("3_7pqd3")
+
+[node name="handAnchor" type="Node3D" parent="CameraController/Camera3D"]
+script = ExtResource("3_tyar0")
+sway_left = Vector3(0, 0.1, 0)
+sway_right = Vector3(0, -0.1, 0)
+rotate_left = Vector3(0, 0, -0.1)
+rotate_right = Vector3(0, 0, 0.1)
+
+[node name="pistol" parent="CameraController/Camera3D/handAnchor" node_paths=PackedStringArray("CAMERA_CONTROLLER", "camera") instance=ExtResource("3_juag8")]
+skeleton = NodePath("../../../..")
+CAMERA_CONTROLLER = NodePath("../../../..")
+camera = NodePath("../..")
+
+[node name="HUD" type="AnimatedSprite3D" parent="CameraController/Camera3D/handAnchor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.28, 0, -2.712)
+modulate = Color(1, 1, 1, 0.392157)
+no_depth_test = true
+sprite_frames = SubResource("SpriteFrames_h8lct")
+script = ExtResource("7_kyenc")
+
+[node name="SPEEDLABEL" type="Label3D" parent="CameraController/Camera3D/handAnchor/HUD"]
+transform = Transform3D(1.823, 0, 0, 0, 1.731, 0, 0, 0, 0.446, 3.47, 1.875, 0)
+text = "SPEED
+"
+font = ExtResource("6_xko6y")
+outline_size = 0
+uppercase = true
+
+[node name="visualHUD" type="Sprite3D" parent="CameraController/Camera3D/handAnchor"]
+transform = Transform3D(1.4, 0, 0, 0, 1.4, 0, 0, 0, 1, 0, 0.05, -4.744)
+modulate = Color(0.619608, 0.901961, 0.623529, 1)
+no_depth_test = true
+texture = ExtResource("9_2jh7h")
+
+[node name="cursor" type="Sprite3D" parent="CameraController/Camera3D/handAnchor"]
+transform = Transform3D(-1.5, 0, -2.26494e-07, 0, 1.5, 0, 2.26494e-07, 0, -1.5, 0, 0, -4.166)
+layers = 512
+sorting_offset = 10.0
+modulate = Color(0.694118, 1, 0.329412, 1)
+no_depth_test = true
+texture = ExtResource("4_la1tu")
 
 [node name="ReflectionProbe" type="ReflectionProbe" parent="CameraController/Camera3D"]
 update_mode = 1
 enable_shadows = true
+ambient_mode = 0
+
+[node name="aimPoint" type="Sprite3D" parent="CameraController/Camera3D"]
+transform = Transform3D(-0.8, 0, -1.50996e-07, 0, 0.9, 0, 1.20797e-07, 0, -1, 0.02058, 0, -4.166)
+no_depth_test = true
+texture = ExtResource("10_ytu02")
+
+[node name="takeOff" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("10_baeo7")
+pitch_scale = 0.49
+
+[node name="rocketBoots" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0531947, -0.329573, -0.0292547)
+light_color = Color(0.839216, 0.45098, 0.105882, 1)
+light_energy = 0.0
+light_size = 0.6
+omni_range = 4.093

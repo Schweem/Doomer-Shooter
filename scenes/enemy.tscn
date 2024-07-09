@@ -1,0 +1,44 @@
+[gd_scene load_steps=7 format=3 uid="uid://nxmgdswpqb8d"]
+
+[ext_resource type="Texture2D" uid="uid://diekwrv0vicv7" path="res://textures/test_enemy.png" id="1_bdytf"]
+[ext_resource type="Script" path="res://controllers/followCamera.gd" id="2_g0dds"]
+[ext_resource type="Script" path="res://controllers/enemyController.gd" id="3_yk3oy"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_65ypo"]
+radius = 0.576256
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_amsmh"]
+height = 2.70319
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_6bels"]
+radius = 32.9151
+
+[node name="enemy" type="Sprite3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+texture = ExtResource("1_bdytf")
+script = ExtResource("2_g0dds")
+
+[node name="CharacterBody3D" type="CharacterBody3D" parent="." node_paths=PackedStringArray("head", "body") groups=["body"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.121689, 0)
+collision_layer = 3
+collision_mask = 3
+script = ExtResource("3_yk3oy")
+head = NodePath("head")
+body = NodePath("body")
+
+[node name="head" type="CollisionShape3D" parent="CharacterBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.49109, 0)
+shape = SubResource("SphereShape3D_65ypo")
+
+[node name="body" type="CollisionShape3D" parent="CharacterBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.446648, 0)
+shape = SubResource("CapsuleShape3D_amsmh")
+
+[node name="detectionRadius" type="Area3D" parent="CharacterBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.438, 0)
+collision_layer = 3
+collision_mask = 3
+monitorable = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CharacterBody3D/detectionRadius"]
+shape = SubResource("SphereShape3D_6bels")

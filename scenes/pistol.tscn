@@ -1,0 +1,100 @@
+[gd_scene load_steps=16 format=3 uid="uid://dnmoh3hsk5ogr"]
+
+[ext_resource type="ArrayMesh" uid="uid://cdhug57u22r23" path="res://test.obj" id="1_ecvvr"]
+[ext_resource type="Texture2D" uid="uid://ylsxmmqi4lh2" path="res://textures/gunTextTest.png" id="2_1i0jq"]
+[ext_resource type="Script" path="res://controllers/gunController.gd" id="2_cac53"]
+[ext_resource type="Texture2D" uid="uid://bmu7a1hkrpntr" path="res://textures/gunFire.png" id="3_6e58e"]
+[ext_resource type="Shader" path="res://shaders/solidBorder.gdshader" id="3_dqobi"]
+[ext_resource type="Texture2D" uid="uid://boa8mwscm7qkn" path="res://textures/HUD.png" id="5_m0fpc"]
+[ext_resource type="AudioStream" uid="uid://qg5boj0pipel" path="res://sounds/explosion.wav" id="6_iri4k"]
+[ext_resource type="FontFile" uid="uid://ceelhrigy7jdk" path="res://fonts/Kenney Mini Square.ttf" id="6_vyy33"]
+[ext_resource type="AudioStream" uid="uid://bbvxpm8c5wtj3" path="res://sounds/reload.mp3" id="7_scyds"]
+[ext_resource type="Texture2D" uid="uid://cycwqdqd51a7o" path="res://textures/shellEject.png" id="8_bh4vr"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_7ulsi"]
+render_priority = 1
+shader = ExtResource("3_dqobi")
+shader_parameter/outline_color = null
+shader_parameter/outline_width = 3.8
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_07df0"]
+render_priority = 1
+next_pass = SubResource("ShaderMaterial_7ulsi")
+albedo_texture = ExtResource("2_1i0jq")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_l6pkn"]
+particle_flag_align_y = true
+particle_flag_rotate_y = true
+direction = Vector3(0, 0, 0)
+initial_velocity_min = 24.1
+initial_velocity_max = 36.65
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_h06mx"]
+shading_mode = 0
+albedo_texture = ExtResource("8_bh4vr")
+
+[sub_resource type="QuadMesh" id="QuadMesh_ufels"]
+material = SubResource("StandardMaterial3D_h06mx")
+size = Vector2(0.03, 0.04)
+orientation = 1
+
+[node name="pistol" type="MeshInstance3D" node_paths=PackedStringArray("_muzzle_flash", "_muzzle_light", "_gun_sound", "_reload_sound", "_ammo_counter")]
+transform = Transform3D(-3.49691e-09, 0, 0.08, 0, 0.08, 0, -0.08, 0, -3.49691e-09, 0, -0.548, -0.626)
+material_overlay = SubResource("StandardMaterial3D_07df0")
+mesh = ExtResource("1_ecvvr")
+skeleton = NodePath("../../..")
+script = ExtResource("2_cac53")
+_muzzle_flash = NodePath("Sprite3D")
+_muzzle_light = NodePath("OmniLight3D")
+_gun_sound = NodePath("shoot")
+_reload_sound = NodePath("reload")
+_ammo_counter = NodePath("SIGHTS/Label3D")
+
+[node name="Sprite3D" type="Sprite3D" parent="."]
+transform = Transform3D(-1.31134e-07, 0, 3, 0, 3, 0, -3, 0, -1.31134e-07, 9.115, 0.704, -0.277)
+pixel_size = 0.02
+texture = ExtResource("3_6e58e")
+
+[node name="RayCast3D" type="RayCast3D" parent="."]
+transform = Transform3D(1, 0, 7.10543e-15, 0, 1, 0, -7.10543e-15, 0, 1, 8.55113, 0, 3.73782e-07)
+target_position = Vector3(200, 0, 0)
+collision_mask = 2
+
+[node name="SIGHTS" type="Sprite3D" parent="."]
+transform = Transform3D(-0.333807, 0.322402, 0.885793, 0, 0.939693, -0.34202, -0.942641, -0.114169, -0.313676, -1.01505, 0.770596, -3.00194)
+modulate = Color(1, 1, 1, 0.392157)
+no_depth_test = true
+texture = ExtResource("5_m0fpc")
+
+[node name="Label3D" type="Label3D" parent="SIGHTS"]
+transform = Transform3D(-2, -7.45058e-08, 2.38419e-07, 2.98023e-08, 2, 5.96046e-08, -5.96046e-08, -1.19209e-07, -2, 9.27448e-05, -0.0128994, 0.00510597)
+text = "AMMO"
+font = ExtResource("6_vyy33")
+font_size = 72
+
+[node name="SpotLight3D" type="SpotLight3D" parent="SIGHTS"]
+transform = Transform3D(12.5, -4.29153e-06, -4.76837e-07, 0, 12.5, 3.33786e-06, -2.38419e-07, 4.76837e-07, 12.5, 2.38419e-07, -0.028259, 0.105835)
+light_color = Color(0.541176, 0.741176, 0.282353, 1)
+
+[node name="OmniLight3D" type="OmniLight3D" parent="."]
+transform = Transform3D(10, 0, 6.82121e-13, 0, 10, 0, -6.82121e-13, 0, 10, 9.1897, 1.43935, 4.01694e-07)
+light_color = Color(1, 0.580392, 0.243137, 1)
+omni_range = 1.399
+omni_attenuation = 3.60501
+
+[node name="shoot" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("6_iri4k")
+
+[node name="reload" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("7_scyds")
+
+[node name="ROUNDS" type="GPUParticles3D" parent="."]
+transform = Transform3D(1, 0, 3.55271e-15, 0, 1, 0, -3.55271e-15, 0, 1, 1.51133, 1.25237, 0.95389)
+emitting = false
+amount = 1
+lifetime = 0.1
+one_shot = true
+fixed_fps = 0
+visibility_aabb = AABB(-16, -9, -13, 32, 20, 26)
+process_material = SubResource("ParticleProcessMaterial_l6pkn")
+draw_pass_1 = SubResource("QuadMesh_ufels")

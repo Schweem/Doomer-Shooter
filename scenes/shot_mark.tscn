@@ -1,0 +1,45 @@
+[gd_scene load_steps=7 format=3 uid="uid://bd6wfrk3btbmu"]
+
+[sub_resource type="Curve" id="Curve_pt06p"]
+min_value = -360.0
+max_value = 360.0
+_data = [Vector2(0, 178.022), 0.0, 0.0, 0, 0, Vector2(0.42029, -19.7802), 1009.98, 1009.98, 0, 0, Vector2(0.905797, 90.989), 0.0, 0.0, 0, 0, Vector2(1, -170.11), 0.0, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="CurveTexture" id="CurveTexture_v6mn5"]
+curve = SubResource("Curve_pt06p")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_ovyj5"]
+lifetime_randomness = 0.24
+emission_shape = 2
+emission_sphere_radius = 1.0
+angle_min = -607.2
+angle_max = 503.1
+angle_curve = SubResource("CurveTexture_v6mn5")
+inherit_velocity_ratio = 0.699
+spread = 144.759
+radial_velocity_min = 1.0
+radial_velocity_max = 10.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_k80ak"]
+shading_mode = 0
+albedo_color = Color(0.960784, 0.913725, 0, 1)
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_0xpvw"]
+material = SubResource("StandardMaterial3D_k80ak")
+radius = 0.025
+height = 0.05
+
+[sub_resource type="Skin" id="Skin_nssmg"]
+
+[node name="GPUParticles3D" type="GPUParticles3D"]
+transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0.00562596, 0, 0)
+visibility_range_end = 4096.0
+emitting = false
+one_shot = true
+explosiveness = 1.0
+randomness = 1.0
+visibility_aabb = AABB(-76.2935, -16, -70.4243, 136.587, 16, 124.849)
+process_material = SubResource("ParticleProcessMaterial_ovyj5")
+draw_pass_1 = SubResource("CapsuleMesh_0xpvw")
+draw_skin = SubResource("Skin_nssmg")
