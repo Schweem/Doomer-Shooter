@@ -1,33 +1,23 @@
-# FPS Godot Basic Setup
+# 2D / 3D FPS Game in godot 
 
-![alt text](https://github.com/StayAtHomeDev-Git/FPS-Godot-Basic-Setup/blob/main/readme_img.png)
+Initial player controller based on the FPS-Godot-Basic-Setup. Expanded and built into an FPS demo. 
 
-These are the project files for the first episode of my "FPS Godot Engine Project" video tutorial series.
+My first attempt at 3D in godot, my first FPS attempt. 
 
-That video series can be found here:
+## Features
++ Double jump + Boost jump
++ Simple ammo economy  + reloads
++ Multiple weapon fire modes
++ Weapon sfx + screenshake effects
+![image](https://github.com/Schweem/Doomer-Shooter/assets/63567335/a9fd5e2d-ef82-4c17-8e56-fb1736995e9c)
++ Simple HUD elements
++ Raycast based shooting
++ Simple 2D enemies always facing player, can walk towards position (return fire soon)
+![image](https://github.com/Schweem/Doomer-Shooter/assets/63567335/d0eb056b-0bb5-4cdd-bec3-66418a56ff08)
 
-# Installation
-
-Version: Godot Engine 4.1
-
-- Git or Download the Zip
-- Place project files into a project folder
-- Import project into the Godot Engine
-
-The project comes with all the source code from the tutorial video and any test levels or resources (materials, nodes, etc).
-
-# License Agreement
-
-Copyright (c) 2023 StayAtHomeDev, LLC
-
-Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-
-# Sponsors
-
-Thanks to all the sponsors of this project!
-
-Geekeh
+## Plans
++ Build a more robust player controller
++ Add more weapons
++ Finish current enemies and add 2-3 new varieties
++ Build a few levels + powerups
++ A boss fight 
