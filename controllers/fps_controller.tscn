@@ -77,6 +77,7 @@ camera = NodePath("../..")
 
 [node name="hand" type="Sprite3D" parent="CameraController/Camera3D/handAnchor/pistol"]
 transform = Transform3D(2.61935, 1.27054, -16.6285, -7.12783, 10.8011, 2.1549e-07, 12.3231, 5.97744, 3.5345, 23.595, -39.38, 22.419)
+offset = Vector2(-6.44, 0.385)
 no_depth_test = true
 render_priority = 2
 texture = ExtResource("11_hbhv7")
