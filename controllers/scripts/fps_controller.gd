@@ -4,7 +4,7 @@ extends CharacterBody3D
 @onready var MAXSPEED : float = SPEED * 4
 @onready var BASESPEED : float = SPEED
 @export var SPRINT_SPEED : float = 7.2
-@onready var SPEED_LABEL : Label3D = $CameraController/Camera3D/handAnchor/HUD/SPEEDLABEL
+@onready var SPEED_LABEL : Label3D = $CameraController/Camera3D/handAnchor/popupHUD/SPEEDLABEL
 
 @export var JUMP_VELOCITY : float = 4.5
 @onready var max_jump_velocity : float = JUMP_VELOCITY * 4

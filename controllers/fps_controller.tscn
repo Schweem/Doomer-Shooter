@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://c3ffql15mo0aj"]
+[gd_scene load_steps=17 format=3 uid="uid://c3ffql15mo0aj"]
 
 [ext_resource type="Script" path="res://controllers/scripts/fps_controller.gd" id="1_pgc1p"]
 [ext_resource type="Material" uid="uid://b4gwd5h7ixvct" path="res://materials/player.tres" id="2_gldw4"]
@@ -12,6 +12,7 @@
 [ext_resource type="Texture2D" uid="uid://ct2s3ed37w63" path="res://textures/visualHUD.png" id="9_2jh7h"]
 [ext_resource type="AudioStream" uid="uid://dt4ceth71avcj" path="res://sounds/KABOOM.wav" id="10_baeo7"]
 [ext_resource type="Texture2D" uid="uid://bkahsax1l65m2" path="res://textures/scanCrossHair.png" id="10_ytu02"]
+[ext_resource type="Texture2D" uid="uid://jbjcd3cmamqr" path="res://textures/handTest.png" id="11_hbhv7"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_u6tj1"]
 
@@ -49,6 +50,18 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
 fov = 110.0
 script = ExtResource("3_7pqd3")
 
+[node name="visualHUD" type="Sprite3D" parent="CameraController/Camera3D"]
+transform = Transform3D(1.4, 0, 0, 0, 1.4, 0, 0, 0, 1, 0, 0.05, -4.744)
+modulate = Color(0.619608, 0.901961, 0.788235, 0.298039)
+no_depth_test = true
+render_priority = 3
+texture = ExtResource("9_2jh7h")
+script = ExtResource("3_tyar0")
+sway_left = Vector3(0, -0.1, 0)
+sway_right = Vector3(0, 0.1, 0)
+rotate_left = Vector3(0, 0, 0.1)
+rotate_right = Vector3(0, 0, -0.1)
+
 [node name="handAnchor" type="Node3D" parent="CameraController/Camera3D"]
 script = ExtResource("3_tyar0")
 sway_left = Vector3(0, 0.1, 0)
@@ -57,18 +70,25 @@ rotate_left = Vector3(0, 0, -0.1)
 rotate_right = Vector3(0, 0, 0.1)
 
 [node name="pistol" parent="CameraController/Camera3D/handAnchor" node_paths=PackedStringArray("CAMERA_CONTROLLER", "camera") instance=ExtResource("3_juag8")]
+transform = Transform3D(-3.49691e-09, -0.0213791, 0.0770904, 0, 0.0770904, 0.0213791, -0.08, 9.34509e-10, -3.36973e-09, 0.415, -0.353, -0.626)
 skeleton = NodePath("../../../..")
 CAMERA_CONTROLLER = NodePath("../../../..")
 camera = NodePath("../..")
 
-[node name="HUD" type="AnimatedSprite3D" parent="CameraController/Camera3D/handAnchor"]
+[node name="hand" type="Sprite3D" parent="CameraController/Camera3D/handAnchor/pistol"]
+transform = Transform3D(2.61935, 1.27054, -16.6285, -7.12783, 10.8011, 2.1549e-07, 12.3231, 5.97744, 3.5345, 23.595, -39.38, 22.419)
+no_depth_test = true
+render_priority = 2
+texture = ExtResource("11_hbhv7")
+
+[node name="popupHUD" type="AnimatedSprite3D" parent="CameraController/Camera3D/handAnchor"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.28, 0, -2.712)
 modulate = Color(1, 1, 1, 0.392157)
 no_depth_test = true
 sprite_frames = SubResource("SpriteFrames_h8lct")
 script = ExtResource("7_kyenc")
 
-[node name="SPEEDLABEL" type="Label3D" parent="CameraController/Camera3D/handAnchor/HUD"]
+[node name="SPEEDLABEL" type="Label3D" parent="CameraController/Camera3D/handAnchor/popupHUD"]
 transform = Transform3D(1.823, 0, 0, 0, 1.731, 0, 0, 0, 0.446, 3.47, 1.875, 0)
 text = "SPEED
 "
@@ -76,17 +96,11 @@ font = ExtResource("6_xko6y")
 outline_size = 0
 uppercase = true
 
-[node name="visualHUD" type="Sprite3D" parent="CameraController/Camera3D/handAnchor"]
-transform = Transform3D(1.4, 0, 0, 0, 1.4, 0, 0, 0, 1, 0, 0.05, -4.744)
-modulate = Color(0.619608, 0.901961, 0.623529, 1)
-no_depth_test = true
-texture = ExtResource("9_2jh7h")
-
 [node name="cursor" type="Sprite3D" parent="CameraController/Camera3D/handAnchor"]
 transform = Transform3D(-1.5, 0, -2.26494e-07, 0, 1.5, 0, 2.26494e-07, 0, -1.5, 0, 0, -4.166)
 layers = 512
 sorting_offset = 10.0
-modulate = Color(0.694118, 1, 0.329412, 1)
+modulate = Color(0.619608, 0.901961, 0.788235, 0.298039)
 no_depth_test = true
 texture = ExtResource("4_la1tu")
 

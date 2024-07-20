@@ -73,8 +73,8 @@ font = ExtResource("6_vyy33")
 font_size = 72
 
 [node name="SpotLight3D" type="SpotLight3D" parent="SIGHTS"]
-transform = Transform3D(12.5, -4.29153e-06, -4.76837e-07, 0, 12.5, 3.33786e-06, -2.38419e-07, 4.76837e-07, 12.5, 2.38419e-07, -0.028259, 0.105835)
-light_color = Color(0.541176, 0.741176, 0.282353, 1)
+transform = Transform3D(12.5, -4.41074e-06, 4.76837e-07, 0, 12.5, 2.6226e-06, -4.76837e-07, 4.76837e-07, 12.5, 0, -0.028259, 0.105835)
+light_color = Color(0.541176, 0.74902, 0.27451, 1)
 
 [node name="OmniLight3D" type="OmniLight3D" parent="."]
 transform = Transform3D(10, 0, 6.82121e-13, 0, 10, 0, -6.82121e-13, 0, 10, 9.1897, 1.43935, 4.01694e-07)
